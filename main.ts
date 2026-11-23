@@ -1,13 +1,15 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 
-// Six Words, One Story — v2 entry.
-// A complete two-sentence story in exactly six words: a passport burned
-// (freedom taken away), then "I swam" (the escape). No filler words.
-const entry = "He burned my passport. I swam.";
+// Six Words, One Story — v3: a child shields their mother by
+// mistranslating every insult, and she smiles back, unknowing.
+// Zero pronouns: all six words carry weight. The mistranslation
+// is the turn — a failure of language turned into an act of love.
+const STORY =
+  "Mistranslated every insult. Mother smiled back.";
+
+if (STORY.split(/\s+/).length !== 6) {
+  throw new Error(`story must be exactly 6 words, got ${STORY}`);
+}
 
 mkdirSync("/output", { recursive: true });
-
-// Write the entry exactly as-is: 30 bytes, no trailing newline, no extra
-// text. The exact byte count matters: the bounty ranks equal scores by
-// entry size, so the shortest complete story wins the tie-break.
-writeFileSync("/output/entry.txt", entry, "utf8");
+writeFileSync("/output/entry.txt", STORY, "utf8");
