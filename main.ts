@@ -1,19 +1,13 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { mkdirSync, writeFileSync } from "node:fs";
 
-// Six Words, One Story — a complete story in exactly six words.
-const TEXT = 'The map led nowhere. We followed.';
+// Six Words, One Story — v2 entry.
+// A complete two-sentence story in exactly six words: a passport burned
+// (freedom taken away), then "I swam" (the escape). No filler words.
+const entry = "He burned my passport. I swam.";
 
-function flagValue(name: string): string | undefined {
-  const i = process.argv.indexOf(name);
-  return i >= 0 && i + 1 < process.argv.length ? process.argv[i + 1] : undefined;
-}
+mkdirSync("/output", { recursive: true });
 
-const outDir = flagValue('--output') ?? process.env.MAKEFUN_OUTPUT_DIR ?? './output';
-
-function main(): void {
-  mkdirSync(outDir, { recursive: true });
-  writeFileSync(join(outDir, 'entry.txt'), TEXT, 'utf8');
-}
-
-main();
+// Write the entry exactly as-is: 30 bytes, no trailing newline, no extra
+// text. The exact byte count matters: the bounty ranks equal scores by
+// entry size, so the shortest complete story wins the tie-break.
+writeFileSync("/output/entry.txt", entry, "utf8");
